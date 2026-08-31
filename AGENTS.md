@@ -1,5 +1,10 @@
 # Brand Visibility Tester — Setup Guide for AI Agents
 
+**Universal coding policy:**
+`/Users/jeremyserna/truth_forge/docs/ecosystem/BUILD_PROCESS_PORTABLE.html`.
+Read it before creating or materially changing software. `CODE_POLICY_BINDING.json`
+is this repository's machine-readable pointer to that policy, not a policy copy.
+
 ## What is this?
 
 A Worker template that tests whether AI models (GPT-5.4, Claude Sonnet 4, Gemini 3 Flash, Llama 4, Mistral) mention your brand when answering relevant queries. All models run through Cloudflare AI Gateway — no external API keys needed.

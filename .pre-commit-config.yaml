@@ -1,0 +1,47 @@
+repos:
+  - repo: local
+    hooks:
+      - id: canonical-code-policy
+        name: canonical coding policy binding
+        entry: python3 /Users/jeremyserna/truth_forge/scripts/gates/code_policy.py repository --root .
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: typecheck
+        name: TypeScript and Cloudflare typecheck
+        entry: npm run typecheck
+        language: system
+        pass_filenames: false
+        files: ^(app/|src/|workers/|package(-lock)?\.json|tsconfig.*\.json|vite\.config\.ts|react-router\.config\.ts|wrangler\.jsonc)
+
+      - id: production-build
+        name: production build
+        entry: npm run build
+        language: system
+        pass_filenames: false
+        files: ^(app/|src/|workers/|public/|package(-lock)?\.json|tsconfig.*\.json|vite\.config\.ts|react-router\.config\.ts|wrangler\.jsonc)
+
+      - id: npm-audit
+        name: dependency security audit
+        entry: npm audit --audit-level=high
+        language: system
+        pass_filenames: false
+        files: ^package(-lock)?\.json$
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-yaml
+      - id: check-json
+        exclude: ^wrangler\.jsonc$
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [--maxkb=4096]
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0
+    hooks:
+      - id: gitleaks
